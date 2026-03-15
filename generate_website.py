@@ -1,45 +1,46 @@
-import os
+def AddEgg( IndexFile, Number ):
+    """adds the image of an egg
+    IndexFile: the file the egg shall be added to
+    Number: the number of the egg"""
+
+    IndexFile.write( "            <section class=\"card\">" )
+
+    IndexFile.write( "                <p>Egg " + str( Number ) + ":</p>" )
+    IndexFile.write( "                <img src=\"img/egg" + str( Number ).zfill( 2 ) + ".png\" style=\"display:block; max-width:100%; height:auto;\">" )
+
+    IndexFile.write( "            </section>" )
 
 
-def MakeImageFiles():
-    """generates the individual <number>.html files for the images"""
-
-    subfolder = "img"
-
-    filenames = [
-    f.split(".")[0] for f in os.listdir(subfolder)
-    if os.path.isfile(os.path.join(subfolder, f))
-    ]
-
-    for name in filenames:
-        ImgFile = open( name + ".html", "w" )
-
-        ImgFile.write( "<!DOCTYPE html>\n" )
-        ImgFile.write( "<html>\n" )
-        ImgFile.write( "<head>\n" )
-        ImgFile.write( "    <title></title>\n" )
-        ImgFile.write( "    <meta charset=\"UTF-8\">\n" )
-        ImgFile.write( "</head>\n" )
-        ImgFile.write( "<body style=\"margin:0; padding:0;\">\n" )
-        ImgFile.write( "    <img src=\"" + subfolder + "/" + name + ".png\" style=\"display:block; width:auto; height:100%;\">\n" )
-        ImgFile.write( "</body>\n" )
-        ImgFile.write( "</html>\n" )
-
-        ImgFile.close()
-
-
-def MakeIndex( ImgNumber ):
-    """generates the index.html file
-    ImgNumber: the number of the image called by default"""
+def MakeIndex(  ):
+    """generates the index.html file"""
 
     IndexFile = open( "index.html", "w" )
 
     IndexFile.write( "<!DOCTYPE html>\n" )
     IndexFile.write( "<html>\n" )
     IndexFile.write( "<head>\n" )
-    IndexFile.write( "    <meta http-equiv=\"refresh\" content=\"0; url=" + str( ImgNumber ) + "\">\n" )
     IndexFile.write( "</head>\n" )
+
     IndexFile.write( "<body>\n" )
+
+    IndexFile.write( "    <header class=\"banner\">" )
+    IndexFile.write( "        <h1>Aurora Easter Event</h1>" )
+    IndexFile.write( "    </header>" )
+
+    IndexFile.write( "    <main class=\"scroll-area\">" )
+
+    IndexFile.write( "        <h2>Easter Challenge</h2>" )
+
+    for nImg in range( 1,10 ):
+        AddEgg( IndexFile, nImg )
+
+    IndexFile.write( "        <h2>Bloopers/Outtakes</h2>" )
+
+    for nImg in range( 11,58 ):
+        AddEgg( IndexFile, nImg )
+
+    IndexFile.write( "    </main>" )
+
     IndexFile.write( "</body>\n" )
     IndexFile.write( "</html>\n" )
 
@@ -47,5 +48,4 @@ def MakeIndex( ImgNumber ):
 
 
 if __name__ == "__main__":
-    MakeImageFiles()
-    MakeIndex( "741357" )
+    MakeIndex()
