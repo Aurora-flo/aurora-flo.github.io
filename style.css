@@ -1,0 +1,7 @@
+.card img {
+  display: block;
+  width: 100%;
+  max-width: 500px;   /* never larger than 500px */
+  height: auto;
+}
+
