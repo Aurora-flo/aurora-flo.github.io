@@ -30,6 +30,22 @@ def MakeIndex(  ):
 
     IndexFile.write( "    <main class=\"scroll-area\">\n" )
 
+    IndexFile.write( "        <h2>Regeln</h2>\n" )
+
+    IndexFile.write( "            <p>Die Orte, die auf den ersten 10 Eiern abgebildet sind, müssen von euch erraten werden.</p>\n" )
+    IndexFile.write( "            <p>Sendet eure Lösungen bitte per Ingame-Mail oder über Discord an einen der vier Gildenleiter (Imo, Setesh, DanonYumei oder TerrorHenri).</p>\n" )
+    IndexFile.write( "            <p>Gebt dabei für jedes Ei folgende Informationen an:</p>\n" )
+
+    IndexFile.write( "            <ul>\n" )
+    IndexFile.write( "                <li>Nummer des Eis</li>\n" )
+    IndexFile.write( "                <li>Name der Karte, auf der es gefunden wurde</li>\n" )
+    IndexFile.write( "                <li>Koordinaten</li>\n" )
+    IndexFile.write( "            </ul>\n" )
+
+    IndexFile.write( "            <p>Einsendeschluss ist der 07. April 2026 um 00:00 Uhr.</p>\n" )
+    IndexFile.write( "            <p>Für jedes korrekt erratene Ei erhält der jeweilige Spieler einen Punkt.</p>\n" )
+    IndexFile.write( "            <p>Das Gesamt-Preisgeld von TODO wird anschließend durch die insgesamt erreichte Punktzahl aller Teilnehmer geteilt. Die Auszahlung erfolgt dann anteilig entsprechend der von jedem Spieler erzielten Punkte.</p>\n" )
+
     IndexFile.write( "        <h2>Easter Challenge</h2>\n" )
 
     for nImg in range( 1,11 ):
