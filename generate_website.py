@@ -44,7 +44,7 @@ def MakeIndex(  ):
 
     IndexFile.write( "            <p>Einsendeschluss ist der 07. April 2026 um 00:00 Uhr.</p>\n" )
     IndexFile.write( "            <p>Für jedes korrekt erratene Ei erhält der jeweilige Spieler einen Punkt.</p>\n" )
-    IndexFile.write( "            <p>Das Gesamt-Preisgeld von TODO wird anschließend durch die insgesamt erreichte Punktzahl aller Teilnehmer geteilt. Die Auszahlung erfolgt dann anteilig entsprechend der von jedem Spieler erzielten Punkte.</p>\n" )
+    IndexFile.write( "            <p>Das Gesamt-Preisgeld von 355.600.000 Gelt wird anschließend durch die insgesamt erreichte Punktzahl aller Teilnehmer geteilt. Die Auszahlung erfolgt dann anteilig entsprechend der von jedem Spieler erzielten Punkte.</p>\n" )
 
     IndexFile.write( "        <h2>Easter Challenge</h2>\n" )
 
