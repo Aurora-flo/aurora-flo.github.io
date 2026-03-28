@@ -53,7 +53,7 @@ def MakeIndex(  ):
 
     IndexFile.write( "        <h2>Bonus eggs (no points)</h2>\n" )
 
-    for nImg in range( 11,62 ):
+    for nImg in range( 11,63 ):
         AddEgg( IndexFile, nImg )
 
     IndexFile.write( "    </main>\n" )
