@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<canvas 
+    id="my-canvas"
+    width="800"
+    height="800"
+    style = "width: 800; height: 800; background: #000000;"
+>
+<canvas>
+
+<script>
+    var c = document.getElementById("my-canvas");
+    var ctx = c.getContext("2d");
+    ctx.moveTo(0,0);
+    ctx.lineTo(200,100);
+    ctx.stroke();
+    
+    //variables for the planet
+    var img_planet = new Image();
+    img_planet.src = "./planet.png";
+    let angle_planet;
+    
+    angle_planet = 0.0;
+    
+    //variables for the space station
+    var img_station = new Image();
+    img_station.src = "./station.png";
+    
+    let angle_station;
+    angSpeed_station = 0.005;
+    
+    //variables for the space ship
+    var img_ship = new Image();
+    img_ship.src = "./spaceship.png";
+    
+    dist_ship_default = 160;
+    
+    let angle_ship;
+    
+    dist_ship = dist_ship_default;
+    
+    //variable for the animation
+    let animation;
+    
+    
+    //a function that checks whether the player wins
+    //returns true if the player wins
+    function checkWin(){
+        if( this.dist_ship_default - 4 < this.dist_ship && this.dist_ship_default + 4 > this.dist_ship && this.dist_ship_default && this.angle_station - 0.24 < this.angle_ship && this.angle_station - 0.2 > this.angle_ship ){
+            
+            ctx.font = "48px serif";
+            ctx.fillStyle = "#ffffff";
+            ctx.fillText("You win!", 290, 350);
+            
+            
+            ctx.font = "36px serif";
+            ctx.fillText("Press 'space' to restart", 180, 450);
+            
+            StopGame();
+            
+            return true;
+        }
+        
+        return false;
+    }
+    
+    
+    //updates the angle of the station
+    function updateStationAngle(){
+        this.angle_station += this.angSpeed_station;
+        
+        if( this.angle_station > Math.PI ){
+            this.angle_station -= 2.0 * Math.PI;
+        }
+        
+        if( this.angle_station < -Math.PI ){
+            this.angle_station += 2.0 * Math.PI;
+        }
+    }
+    
+    
+    //updates the angle of the spaceship
+    function updateShipAngle(){
+        this.angle_ship += this.angSpeed_station * Math.pow( this.dist_ship_default / this.dist_ship, 1.5 );
+        
+        if( this.angle_ship > Math.PI ){
+            this.angle_ship -= 2.0 * Math.PI;
+        }
+        
+        if( this.angle_ship < -Math.PI ){
+            this.angle_ship += 2.0 * Math.PI;
+        }
+    }
+    
+    
+    //draws an object at its new position
+    //img: the image of the object
+    //dist: the distance from the planet (centre of canvas)
+    //angle: the angle at which the object is located
+    function drawObject( img, dist, angle ){
+        //store current state
+        ctx.save();
+        
+        //rotate the canvas
+        ctx.translate( 400, 400 );
+        ctx.rotate( -angle );
+        
+        ctx.drawImage(img, -0.5 * img.width, -0.5 * img.height - dist , img.width, img.height );
+        
+        //return the canvas to its original state
+        ctx.restore();
+    }
+    
+    
+    // Wrapper function
+    let startAnimation = () => {
+        // Before each re-painting, we need to clear previous painting from canvas
+        ctx.clearRect(0, 0, c.width, c.height);
+        
+        if ( this.checkWin() ){
+            return;
+        }
+        
+        // Call animate() to update planets movements and direction
+        this.img_planet.onload = drawObject( this.img_planet, 0.0, -this.angle_planet );
+        this.angle_planet += 0.01;
+        
+        //draw the station
+        this.img_station.onload = drawObject(this.img_station, 174, this.angle_station);
+        updateStationAngle();
+        
+        //draw the spaceship
+        this.updateShipAngle();
+        this.img_ship.onload = drawObject( this.img_ship, this.dist_ship, this.angle_ship );
+
+        // Pass the wrapper function to browser's animation API
+        animation = requestAnimationFrame(startAnimation);
+    }
+    
+    
+    //a function providing the game controle
+    function GameControle(event) {
+            
+        if (event.key === "a") { 
+            event.preventDefault();
+            
+            if ( 380 > dist_ship ){
+                dist_ship += 1;
+            }
+        } 
+        
+        if (event.key === "d") { 
+            event.preventDefault();
+            
+            if ( 70 < dist_ship ){
+                dist_ship -= 1;
+            }
+        } 
+    }
+    
+    
+    //a function providing the game controle after winning
+    function RestartControle(event) {
+        if (event.key === " ") { 
+            event.preventDefault();
+            
+            StartGame();
+        }
+    }
+    
+    
+    //the function to start the game
+    function StartGame(){
+        //set default positions
+        //planet
+        this.angle_planet = 0.0;
+        
+        //station
+        this.angle_station = 0.05;
+        
+        //ship
+        this.dist_ship = this.dist_ship_default;
+        this.angle_ship = -0.7;
+    
+        document.removeEventListener('keydown', RestartControle)
+    
+        document.addEventListener('keydown', GameControle);
+
+        startAnimation();
+    }
+    
+    
+    //the function to stop the game
+    function StopGame(){        
+        document.removeEventListener('keydown', GameControle )
+    
+        document.addEventListener('keydown', RestartControle );
+    }
+    
+    
+    StartGame();
+
+</script>
+
+</body>
+</html>
